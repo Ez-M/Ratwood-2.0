@@ -1282,12 +1282,6 @@
 		src.dir = pick(dir_list) //Random directions are fun :)
 
 /atom/proc/smooth_icon()
-	if(QDELETED(src))
-		return
-	smooth &= ~SMOOTH_QUEUED
-	if (!z)
-		CRASH("[type] called smooth_icon() without being on a z-level")
-	if(smooth & USES_SMOOTHING)
-		smooth()
-	else
-		CRASH("[type] called smooth_icon() without valid flags: [smooth]")
+	// Delegate to legacy global smoothing helper to stay
+	// compatible with the existing icon_smoothing.dm system.
+	/proc/smooth_icon(src)
