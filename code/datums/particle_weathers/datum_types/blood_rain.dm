@@ -34,6 +34,14 @@
 /datum/particle_weather/blood_rain_gentle/weather_act(mob/living/L)
 	L.adjust_fire_stacks(-100)
 	L.SoakMob(FULL_BODY)
+	if(issimple(L))
+		return
+	if(ishuman(L))
+		var/mob/living/carbon/human/M = L
+		if(M.patron && (istype(M.patron, /datum/patron/inhumen/graggar)||istype(M.patron, /datum/patron/inhumen/zizo)))
+			M.add_stress(/datum/stressevent/bloodrevel)
+		else
+			M.add_stress(/datum/stressevent/bloodrain)
 
 /datum/particle_weather/blood_rain_storm
 	name = "Strange Rainstorm"
@@ -52,7 +60,11 @@
 	probability = 10
 	target_trait = PARTICLEWEATHER_BLOODRAIN
 
-//Makes you a bit chilly
 /datum/particle_weather/blood_rain_storm/weather_act(mob/living/L)
 	L.adjust_fire_stacks(-100)
 	L.SoakMob(FULL_BODY)
+	if(issimple(L))
+		return
+	if(ishuman(L))
+		var/mob/living/carbon/human/M = L
+		M.add_stress(/datum/stressevent/bloodrain)

@@ -518,6 +518,12 @@
 	. = ..()
 	if(!iscarbon(owner))
 		return
+	var/obj/item/bodypart/affected = bodypart_owner
+
+
 	var/mob/living/carbon/carbon_owner = owner
 	if(!carbon_owner.stat && prob(30))
-		carbon_owner.apply_damage(5, BURN)
+		if(affected.bandage)
+			carbon_owner.apply_damage(1, BURN)
+		else
+			carbon_owner.apply_damage(5, BURN)

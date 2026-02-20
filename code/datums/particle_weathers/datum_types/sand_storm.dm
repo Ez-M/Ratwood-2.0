@@ -32,10 +32,10 @@
 	maxSeverity = 25
 	maxSeverityChange = 10
 	severitySteps = 5
-
 	immunity_type = TRAIT_SANDSTORM_IMMUNE
 	probability = 1
 	target_trait = PARTICLEWEATHER_SAND
+	COOLDOWN_DECLARE(dustdevil)
 
 /datum/particle_weather/sand_gentle/weather_act(mob/living/L)
 	if(HAS_TRAIT(L, TRAIT_SANDSTORM_IMMUNE))
@@ -43,6 +43,83 @@
 
 	if(!HAS_TRAIT(L, TRAIT_SANDSTORM_GOGGLES) && prob(5))
 		L.adjust_blurriness(rand(1,3))
+	if(L.bodytemperature < BODYTEMP_HEAT_LEVEL_ONE_MAX - 3)
+		if(ishuman(L))
+			var/mob/living/carbon/human/H = L
+			H.apply_weather_temperature(rand(1,3))
+		else
+			L.adjust_bodytemperature(rand(1,3))
+
+/datum/particle_weather/sand_gentle/tick()
+	if(!COOLDOWN_FINISHED(src, dustdevil))
+		return
+
+	var/max_devils = 5
+
+	// Count active dust devils
+	var/current_devils = GLOB.active_dust_devils.len
+
+	if(current_devils >= max_devils)
+		return
+
+	// Build viable player list
+	var/list/viable_players = list()
+	for(var/client/C in GLOB.clients)
+		if(!isliving(C.mob))
+			continue
+		var/mob/living/L = C.mob
+		var/turf/T = get_turf(L)
+		if(!T)
+			continue
+		if(!T.outdoor_effect)
+			continue
+		viable_players += L
+
+	if(!viable_players.len)
+		return
+
+	var/spawn_attempts = 2
+
+	for(var/i = 1 to spawn_attempts)
+		if(current_devils >= max_devils)
+			break
+
+		var/mob/living/target = pick(viable_players)
+		if(!target)
+			continue
+
+		var/turf/center = get_turf(target)
+		if(!center)
+			continue
+
+		// Count devils near this player
+		var/nearby = 0
+		for(var/obj/effect/weather/tornado/dust_devil/D in range(center, 7))
+			nearby++
+
+		if(nearby >= 2)
+			continue
+
+		// Pick a valid outdoor turf near them
+		var/list/turfs = list()
+		for(var/turf/open/T in range(center, 7))
+			if(!T.outdoor_effect || T.outdoor_effect.weatherproof)
+				continue
+			if(T.density)
+				continue
+			turfs += T
+
+		if(!turfs.len)
+			continue
+
+		var/turf/spawn_turf = pick(turfs)
+
+		new /obj/effect/weather/tornado/dust_devil(spawn_turf)
+
+		current_devils++
+
+	COOLDOWN_START(src, dustdevil, rand(15, 40) * 1 SECONDS)
+
 
 /datum/particle_weather/sand_gentle/stop_weather_sound_effect(mob/living/L)
 	..() // stop sounds normally
@@ -72,6 +149,7 @@
 	immunity_type = TRAIT_SANDSTORM_IMMUNE
 	probability = 1
 	target_trait = PARTICLEWEATHER_SAND
+	COOLDOWN_DECLARE(dustdevil)
 
 /datum/particle_weather/sand_storm/weather_act(mob/living/L)
 	if(HAS_TRAIT(L, TRAIT_SANDSTORM_IMMUNE))
@@ -81,10 +159,85 @@
 	// Heat + abrasion
 	if(!HAS_TRAIT(L, TRAIT_SANDSTORM_GOGGLES) && prob(25))
 		L.adjust_blurriness(rand(1,3))
-
+	if(L.bodytemperature < BODYTEMP_HEAT_LEVEL_ONE_MAX - 3)
+		if(ishuman(L))
+			var/mob/living/carbon/human/H = L
+			H.apply_weather_temperature(rand(3,5))
+		else
+			L.adjust_bodytemperature(rand(3,5))
 	if(!L.has_sandstorm_hood())
 		if(prob(33))
 			L.energy_add(-10)
+
+/datum/particle_weather/sand_storm/tick()
+	if(!COOLDOWN_FINISHED(src, dustdevil))
+		return
+
+	var/max_devils = 10
+
+	// Count active dust devils
+	var/current_devils = GLOB.active_dust_devils.len
+
+	if(current_devils >= max_devils)
+		return
+
+	// Build viable player list
+	var/list/viable_players = list()
+	for(var/client/C in GLOB.clients)
+		if(!isliving(C.mob))
+			continue
+		var/mob/living/L = C.mob
+		var/turf/T = get_turf(L)
+		if(!T)
+			continue
+		if(!T.outdoor_effect)
+			continue
+		viable_players += L
+
+	if(!viable_players.len)
+		return
+
+	var/spawn_attempts = 2
+
+	for(var/i = 1 to spawn_attempts)
+		if(current_devils >= max_devils)
+			break
+
+		var/mob/living/target = pick(viable_players)
+		if(!target)
+			continue
+
+		var/turf/center = get_turf(target)
+		if(!center)
+			continue
+
+		// Count devils near this player
+		var/nearby = 0
+		for(var/obj/effect/weather/tornado/dust_devil/D in range(center, 7))
+			nearby++
+
+		if(nearby >= 2)
+			continue
+
+		// Pick a valid outdoor turf near them
+		var/list/turfs = list()
+		for(var/turf/open/T in range(center, 7))
+			if(!T.outdoor_effect || T.outdoor_effect.weatherproof)
+				continue
+			if(T.density)
+				continue
+			turfs += T
+
+		if(!turfs.len)
+			continue
+
+		var/turf/spawn_turf = pick(turfs)
+
+		new /obj/effect/weather/tornado/dust_devil(spawn_turf)
+
+		current_devils++
+
+	COOLDOWN_START(src, dustdevil, rand(15, 40) * 1 SECONDS)
 
 /datum/particle_weather/sand_storm/stop_weather_sound_effect(mob/living/L)
 	..() // stop sounds normally

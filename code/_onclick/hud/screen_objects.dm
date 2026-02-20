@@ -1888,6 +1888,11 @@
 	screen_loc = rogueui_temperature
 	layer = HUD_LAYER+0.1
 
+/atom/movable/screen/temperature/Click(location, control, params)
+	if(ishuman(usr))
+		var/mob/living/carbon/human/H = usr
+		H.check_temperature_state(H)
+
 /atom/movable/screen/grain
 	icon = 'icons/grain.dmi'
 	icon_state = "grain"

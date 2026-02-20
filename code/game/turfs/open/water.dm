@@ -218,6 +218,7 @@
 							water_overlay.plane = GAME_PLANE_HIGHEST
 			if(L.bodytemperature > BODYTEMP_COLD_LEVEL_ONE_MAX + 10)	//swimming in water will cool you down and chill you.
 				L.adjust_bodytemperature(-10)
+				L.update_health_hud()
 		if(!istype(L, /mob/living/carbon/human/species/skeleton))
 			return
 		if(!istype(src, /turf/open/water/sewer))
@@ -302,6 +303,7 @@
 				playsound(user, pick(wash), 100, FALSE)
 		if(L.bodytemperature > BODYTEMP_COLD_LEVEL_ONE_MAX + 50)	//washing yourself helps to cool you off.
 			L.adjust_bodytemperature(-50)
+			L.update_health_hud()
 		return
 	..()
 

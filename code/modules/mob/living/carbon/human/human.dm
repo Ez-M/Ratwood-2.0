@@ -1134,6 +1134,44 @@
 			span_notice("The cold helps draw the heat out of your body.")
 		)
 
+/mob/living/carbon/human/proc/apply_weather_temperature(base_delta, exposure_temp = null)
+
+	if(!base_delta)
+		return 0
+
+	var/current_temp = bodytemperature
+	var/new_temp = current_temp + base_delta
+
+	// If caller didn't supply exposure temp, assume resulting temp
+	if(isnull(exposure_temp))
+		exposure_temp = new_temp
+
+	var/protection = 0
+
+	if(base_delta > 0)
+		// Only apply protection if:
+		// Already overheated OR being pushed into overheating
+		if(current_temp >= BODYTEMP_NORMAL_MAX || new_temp > BODYTEMP_NORMAL_MAX)
+			protection = get_heat_protection(exposure_temp)
+
+	else if(base_delta < 0)
+		// Only apply protection if:
+		// Already too cold OR being pushed into too cold
+		if(current_temp <= BODYTEMP_NORMAL_MIN || new_temp < BODYTEMP_NORMAL_MIN)
+			protection = get_cold_protection(exposure_temp)
+
+	// ---------------------------
+	// APPLY PROTECTION SCALING
+	// ---------------------------
+	var/final_delta = base_delta
+	var/half_delta = (base_delta / 2)
+	if(protection > 0)
+		(final_delta -= (half_delta * protection))
+
+	adjust_bodytemperature(final_delta)
+
+	return final_delta
+
 /*/mob/living/carbon/human/proc/update_heretic_commune()
 	if(HAS_TRAIT(src, TRAIT_COMMIE) || HAS_TRAIT(src, TRAIT_CABAL) || HAS_TRAIT(src, TRAIT_HORDE) || HAS_TRAIT(src, TRAIT_DEPRAVED))
 		verbs |= /mob/living/carbon/human/verb/commune

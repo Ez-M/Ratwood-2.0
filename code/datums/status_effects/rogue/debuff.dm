@@ -1083,3 +1083,14 @@
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
 		C.remove_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN)
+
+/datum/status_effect/debuff/freezing
+	id = "freezing"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/freezing
+	effectedstats = list(STATKEY_CON = -1)
+	duration = 100
+
+/atom/movable/screen/alert/status_effect/debuff/freezing
+	name = "Freezing"
+	desc = "It's so cold!"
+	icon_state = "chilled"

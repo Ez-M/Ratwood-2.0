@@ -41,7 +41,6 @@ SUBSYSTEM_DEF(ParticleWeather)
 	switch(SSmapping.config.map_name)
 		if("Rockhill")
 			selected_forecast = new /datum/forecast/rockhill()
-
 		else if("Dun World")
 			selected_forecast = new /datum/forecast/dunworld()
 
@@ -52,11 +51,12 @@ SUBSYSTEM_DEF(ParticleWeather)
 	return ..()
 
 /datum/controller/subsystem/ParticleWeather/proc/run_weather(datum/particle_weather/weather_datum_type, force = 0, color)
-	if(runningWeather)
-		if(force)
-			runningWeather.end()
-		else
+
+	if(runningWeather || queued_weather)
+		if(!force)
 			return
+		if(runningWeather)
+			runningWeather.end()
 	if (istext(weather_datum_type))
 		for (var/V in subtypesof(/datum/particle_weather))
 			var/datum/particle_weather/W = V
@@ -114,13 +114,23 @@ SUBSYSTEM_DEF(ParticleWeather)
 	QDEL_NULL(particleEffect)
 
 /datum/controller/subsystem/ParticleWeather/proc/check_forecast(time_of_day)
-	if(GLOB.forecast)
-		GLOB.forecast = null
+
+	// Do not roll new forecast if weather is active or queued
+	if(runningWeather || queued_weather)
 		return
-	var/datum/particle_weather/weather = selected_forecast.pick_weather(time_of_day)
-	if(!weather)
+
+	if(!selected_forecast)
+		log_game("No selected_forecast set!")
 		return
-	if(runningWeather && runningWeather.target_trait == initial(weather.target_trait))
+
+	var/datum/particle_weather/weather_type = selected_forecast.pick_weather(time_of_day)
+
+	if(!weather_type)
+		log_game("Forecast roll produced no weather for [time_of_day]")
 		return
-	GLOB.forecast = initial(weather.forecast_tag)
-	run_weather(weather)
+
+	GLOB.forecast = initial(weather_type.forecast_tag)
+
+	log_game("Forecast picked [weather_type] for [time_of_day]")
+
+	run_weather(weather_type)

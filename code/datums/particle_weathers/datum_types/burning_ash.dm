@@ -34,7 +34,10 @@
 /datum/particle_weather/ashstorm/weather_act(mob/living/L)
 	if(issimple(L))
 		return
-	if(L.bodytemperature < 600)	//Prevent endless temperature rise
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		H.apply_weather_temperature(rand(5,15))
+	else
 		L.adjust_bodytemperature(rand(5,15))
 	if(prob(25))
 		L.adjust_fire_stacks(1)

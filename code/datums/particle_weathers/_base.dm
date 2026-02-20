@@ -167,7 +167,8 @@
 
 	//Always step severity to start
 	ChangeSeverity()
-
+    // Once weather actually starts, forecast is consumed
+	GLOB.forecast = null
 
 /datum/particle_weather/proc/ChangeSeverity()
 	if(!running)

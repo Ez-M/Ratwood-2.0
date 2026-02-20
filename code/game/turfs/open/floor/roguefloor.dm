@@ -243,7 +243,7 @@
 	canSmoothWith = list(/turf/open/floor/rogue/snow,)
 	neighborlay = "snowedge"
 	spread_chance = 0
-
+	temperature = 100
 /turf/open/floor/rogue/snow/Initialize()
 	dir = pick(GLOB.cardinals)
 	. = ..()
@@ -302,6 +302,7 @@
 	canSmoothWith = list(/turf/open/floor/rogue/snowrough,)
 	neighborlay = "snowroughedge"
 	spread_chance = 0
+	temperature = 100
 
 /turf/open/floor/rogue/snowrough/Initialize()
 	dir = pick(GLOB.cardinals)
@@ -325,6 +326,7 @@
 	canSmoothWith = list(/turf/open/floor/rogue/snow,
 						/turf/open/floor/rogue/snowrough,)
 	neighborlay = "snowpatchy_grassedge"
+	temperature = 100
 
 /turf/open/floor/rogue/snowpatchy/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
@@ -345,6 +347,7 @@
 						/turf/open/floor/rogue/snow,
 						/turf/open/floor/rogue/snowrough,)
 	neighborlay = "grass_coldedge"
+	temperature = 160
 
 /turf/open/floor/rogue/grasscold/Initialize()
 	dir = pick(GLOB.cardinals)
@@ -583,24 +586,24 @@
 	. = ..()
 	if(!isliving(user))
 		return
-	
+
 	var/mob/living/L = user
 	if(L.stat != CONSCIOUS)
 		return
-	
+
 	// Check if the user is holding a shovel
 	var/obj/item/rogueweapon/shovel/S = L.get_active_held_item()
 	if(!istype(S))
 		return
-	
+
 	// Check if in scoop intent
 	if(L.used_intent.type != /datum/intent/shovelscoop)
 		return
-	
+
 	// Call the shovel's autodig proc
 	if(S.start_autodig(L, src))
 		return TRUE
-	
+
 	return FALSE
 
 /turf/open/floor/rogue/dirt/Destroy()
@@ -868,6 +871,7 @@
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/turf/open/floor/rogue/dirt/road,/turf/open/floor/rogue/dirt)
 	neighborlay = "lavedge"
+	temperature = 500
 
 /turf/open/floor/rogue/volcanic/Initialize()
 	dir = pick(GLOB.cardinals)
@@ -1639,6 +1643,7 @@
 	landsound = 'sound/foley/jumpland/grassland.wav'
 	smooth = SMOOTH_MORE
 	canSmoothWith = list(/turf/open/floor/rogue, /turf/open/floor/rogue/underworld)
+	temperature = 100
 
 /turf/open/floor/rogue/dark_ice/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)

@@ -35,9 +35,14 @@
 	if(issimple(L))
 		return
 
-	L.adjust_bodytemperature(-rand(5, 10))
+	if(L.bodytemperature > BODYTEMP_COLD_LEVEL_ONE_MAX + 3)
+		if(ishuman(L))
+			var/mob/living/carbon/human/H = L
+			H.apply_weather_temperature(-rand(2,4))
+		else
+			L.adjust_bodytemperature(-rand(2,4))
 	var/armor_block = L.run_armor_check(BODY_ZONE_HEAD, "blunt", blade_dulling=BCLASS_BLUNT)
-	if(L.apply_damage(rand(5, 10), UNARMED_ATTACK, BODY_ZONE_HEAD, armor_block))
+	if(L.apply_damage(rand(5, 10), BRUTE, BODY_ZONE_HEAD, armor_block))
 		if(prob(25))
 			to_chat(L, span_danger("You're being assailed by an onslaught of hail!"))
 	else

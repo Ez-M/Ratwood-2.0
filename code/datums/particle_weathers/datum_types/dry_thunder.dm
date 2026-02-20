@@ -1,7 +1,7 @@
 /particles/weather/static_spark
 	icon_state = "spark"
 
-	color = "#add8e6"
+	color = "#f8ff30"
 
 	position = generator("box", list(-400, -300, 0), list(400, 300, 0))
 
@@ -40,19 +40,28 @@
 		return
 
 
-	var/lightning_strikes = 1
+	var/lightning_strikes = 10
 	for(var/i = 1 to lightning_strikes)
 		var/atom/lightning_destination
-		if(prob(100))
-			var/list/viable_players = list()
-			for(var/client/client in GLOB.clients)
-				if(!isliving(client.mob))
-					continue
-				viable_players += client.mob
-			if(!viable_players.len)
-				return
-			lightning_destination = pick(viable_players)
+		var/list/viable_players = list()
+		for(var/client/client in GLOB.clients)
+			if(!isliving(client.mob))
+				continue
+			var/mob/living/L = client.mob
+			viable_players += L
+		if(!viable_players.len)
+			return
 
+		lightning_destination = pick(viable_players)
+		var/mob/living/humann= pick(viable_players)
+		var/turf/humann_turf = get_turf(humann)
+		var/area/A = get_area(humann)
+		if(humann.badluck(4) && istype(A, /area/rogue/outdoors))
+			humann.Immobilize(0.5 SECONDS)
+			humann.apply_status_effect(/datum/status_effect/debuff/clickcd, 6 SECONDS)
+			humann.electrocute_act(1, src, 1, SHOCK_NOSTUN)
+			humann.apply_status_effect(/datum/status_effect/buff/lightningstruck, 6 SECONDS)
+			new /obj/effect/temp_visual/lightning/storm(get_turf(humann_turf))
 		if(lightning_destination)
 			var/list/turfs = list()
 			for(var/turf/open/turf in range(lightning_destination, 7))

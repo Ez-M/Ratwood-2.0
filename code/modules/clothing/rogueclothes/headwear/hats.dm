@@ -6,6 +6,10 @@
 	sewrepair = TRUE
 	salvage_result = /obj/item/natural/fibers
 	salvage_amount = 2 // Minor materials loss
+	cold_protection = null
+	min_cold_protection_temperature = BODYTEMP_NORMAL_MIN
+	heat_protection = HEAD
+	max_heat_protection_temperature = BODYTEMP_HEAT_LEVEL_ONE_MAX
 
 /obj/item/clothing/head/roguetown/puritan
 	name = "buckled hat"
@@ -35,6 +39,10 @@
 	name = "bard's hat"
 	icon_state = "bardhat"
 	sewrepair = TRUE
+	cold_protection = null
+	min_cold_protection_temperature = BODYTEMP_NORMAL_MIN
+	heat_protection = HEAD
+	max_heat_protection_temperature = BODYTEMP_HEAT_LEVEL_ONE_MAX
 
 /obj/item/clothing/head/roguetown/smokingcap
 	name = "smoking cap"
@@ -61,8 +69,10 @@
 	desc = "A comfortable warm hat lined with fur."
 	icon_state = "hatfur"
 	sewrepair = TRUE
-	cold_protection = 5
-
+	cold_protection = HEAD
+	min_cold_protection_temperature = 50
+	heat_protection = null
+	max_heat_protection_temperature = 350
 /obj/item/clothing/head/roguetown/papakha
 	name = "papakha"
 	icon_state = "papakha"
@@ -72,14 +82,19 @@
 	blocksound = SOFTHIT
 	salvage_result = /obj/item/natural/fur
 	salvage_amount = 1
-	cold_protection = 10
-
+	cold_protection = HEAD
+	min_cold_protection_temperature = 50
+	heat_protection = null
+	max_heat_protection_temperature = 350
 /obj/item/clothing/head/roguetown/hatblu
 	name = "fur hat"
 	desc = "A blue hat lined with fur."
 	icon_state = "hatblu"
 	sewrepair = TRUE
-	cold_protection = 5
+	cold_protection = HEAD
+	min_cold_protection_temperature = 50
+	heat_protection = null
+	max_heat_protection_temperature = 350
 
 /obj/item/clothing/head/roguetown/fisherhat
 	name = "straw hat"
@@ -89,13 +104,20 @@
 	sewrepair = TRUE
 //	color = "#fbc588"
 	//dropshrink = 0.75
+	cold_protection = null
+	min_cold_protection_temperature = BODYTEMP_NORMAL_MIN
+	heat_protection = HEAD
+	max_heat_protection_temperature = BODYTEMP_HEAT_LEVEL_ONE_MAX
 
 /obj/item/clothing/head/roguetown/flathat
 	name = "flat hat"
 	icon_state = "flathat"
 	item_state = "flathat"
 	sewrepair = TRUE
-
+	cold_protection = null
+	min_cold_protection_temperature = BODYTEMP_NORMAL_MIN
+	heat_protection = HEAD
+	max_heat_protection_temperature = BODYTEMP_HEAT_LEVEL_ONE_MAX
 
 /obj/item/clothing/head/roguetown/chaperon
 	name = "chaperon hat"
@@ -401,7 +423,10 @@
 /obj/item/clothing/head/roguetown/brimmed
 	desc = "A simple brimmed hat that provides some relief from the sun."
 	icon_state = "brimmed"
-
+	cold_protection = null
+	min_cold_protection_temperature = BODYTEMP_NORMAL_MIN
+	heat_protection = HEAD
+	max_heat_protection_temperature = BODYTEMP_HEAT_LEVEL_ONE_MAX
 // azure addition - random wizard hats
 
 /obj/item/clothing/head/roguetown/wizhat/random/Initialize()
@@ -527,6 +552,10 @@
 	sewrepair = TRUE
 	muteinmouth = FALSE
 	spitoutmouth = FALSE
+	cold_protection = HEAD
+	min_cold_protection_temperature = BODYTEMP_COLD_LEVEL_ONE_MAX
+	heat_protection = HEAD
+	max_heat_protection_temperature = BODYTEMP_HEAT_LEVEL_ONE_MAX
 
 /obj/item/clothing/head/roguetown/scarf/MiddleClick(mob/user)
 	overarmor = !overarmor

@@ -16,6 +16,12 @@
 	volume = 150
 	direct = TRUE
 
+/datum/looping_sound/hurricane
+	mid_sounds = 'sound/weather/rain/weather_hurricane.ogg'
+	mid_length = 50 SECONDS
+	volume = 100
+	direct = TRUE
+
 /datum/looping_sound/snow
 	mid_sounds = 'sound/weather/snow/weather_snow.ogg'
 	mid_length = 50 SECONDS

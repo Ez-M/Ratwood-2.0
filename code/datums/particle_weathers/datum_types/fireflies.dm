@@ -32,3 +32,10 @@
 	probability = 20
 	target_trait = PARTICLEWEATHER_FIREFLY
 	forecast_tag = "fireflies"
+
+/datum/particle_weather/fireflies/weather_act(mob/living/L)
+	if(issimple(L))
+		return
+	if(ishuman(L))
+		var/mob/living/carbon/human/M = L
+		M.add_stress(/datum/stressevent/fireflies)
