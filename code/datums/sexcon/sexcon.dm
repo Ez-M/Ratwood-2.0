@@ -457,7 +457,7 @@
 				user.add_stress(/datum/stressevent/unseemly_made_love)
 			target.add_stress(/datum/stressevent/cummax)
 		if(user_ugly && !target_ugly && !target_goodlover) // good lover are immune to ugly characters
-			if(target_beautiful) // stress event last twice
+			if(target_beautiful) // stress event last longer
 				target.add_stress(/datum/stressevent/unseemly_made_love/beautiful)
 			else
 				target.add_stress(/datum/stressevent/unseemly_made_love)
