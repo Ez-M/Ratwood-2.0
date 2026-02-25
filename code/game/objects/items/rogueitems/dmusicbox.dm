@@ -106,8 +106,9 @@
 		to_chat(user, span_warning("TOO BIG. 6 MEGS OR LESS."))
 		return
 	lastfilechange = world.time
-	fcopy(infile,"data/jukeboxuploads/[user.ckey]/[filename]")
-	curfile = file("data/jukeboxuploads/[user.ckey]/[filename]")
+	var/rng_number = "[rand(1,99)]" // prevent chance of file overwriting
+	fcopy(infile,"data/jukeboxuploads/[user.ckey]/[rng_number][filename]")
+	curfile = file("data/jukeboxuploads/[user.ckey]/[rng_number][filename]")
 
 	loaded = FALSE
 	update_icon()
