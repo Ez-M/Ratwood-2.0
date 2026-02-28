@@ -516,7 +516,7 @@
 						/obj/item/rogueweapon/chisel = 1,
 	)
 
-/* //Too much with the new virtues and origins
+
 
 	if(H.mind)
 		// Skill selection with readable names
@@ -620,4 +620,3 @@
 					craft_skills -= novice_name
 				if(novice_name in combat_skills)
 					combat_skills -= novice_name
-*/
