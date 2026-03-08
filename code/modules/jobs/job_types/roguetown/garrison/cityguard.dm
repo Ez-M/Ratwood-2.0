@@ -41,8 +41,8 @@
 /datum/outfit/job/roguetown/cityguard
 	neck = /obj/item/clothing/neck/roguetown/gorget
 	pants = /obj/item/clothing/under/roguetown/chainlegs
-	cloak = /obj/item/clothing/cloak/citywatch
-	armor = /obj/item/clothing/suit/roguetown/armor/citywatch
+	cloak = /obj/item/clothing/cloak/half/citywatch
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/citywatch
 	head = /obj/item/clothing/head/roguetown/helmet/citywatch
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
 	gloves = /obj/item/clothing/gloves/roguetown/chain
