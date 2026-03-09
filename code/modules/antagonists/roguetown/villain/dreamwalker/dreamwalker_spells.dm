@@ -78,7 +78,7 @@
 
 	if(marked_target != user)
 		to_chat(user, span_warning("[user] traces a glowing symbol in the air marking [marked_target.real_name]."), 
-							 span_notice("You mark [marked_target.real_name] for pursuit."))
+							span_notice("You mark [marked_target.real_name] for pursuit."))
 
 	return TRUE
 
