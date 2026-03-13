@@ -206,7 +206,7 @@
 
 /obj/structure/bondage/torture_table/lever
 	name = "torture table lever"
-	desc = "A torture table with a built-in lever mechanism."
+	desc = "A torture table with a built-in lever mechanism. Right click to use the lever."
 	icon = 'icons/roguetown/misc/64x64.dmi'
 	icon_state = "tort_table_lever"
 
@@ -232,7 +232,7 @@
 		var/def_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 		var/obj/item/bodypart/BP = L.get_bodypart(def_zone)
 		if(BP)
-			L.visible_message(span_boldwarning("Chains pull and dig into [L]'s [BP.name]!"), span_userdanger("[src] chains tear into my [BP.name]!"))
+			L.visible_message(span_boldwarning("Chains pull and rip into [L]'s [BP.name]!"), span_userdanger("Chains rip into my [BP.name]!"))
 			L.emote("agony")
 			BP.add_wound(/datum/wound/fracture)
 			BP.update_disabled()
