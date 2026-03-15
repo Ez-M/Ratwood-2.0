@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(virtue_mount_choices_noble, (list(
 
 	var/list/choices = list()
 
-	var/list/mount_choices = GLOB.virtue_mount_choices
+	var/list/mount_choices = GLOB.virtue_mount_choices.Copy()
 	if (HAS_TRAIT(user, TRAIT_NOBLE))
 		to_chat(user, span_info("As an anointed noble, your steed can also come from pedigree stock."))
 		mount_choices += GLOB.virtue_mount_choices_noble

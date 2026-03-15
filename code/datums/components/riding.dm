@@ -211,8 +211,17 @@
 			return
 		if(!isturf(AM.loc))
 			return
+		var/stair_transit_pending = FALSE
+		for(var/obj/structure/stairs/stair in current)
+			if(stair.get_target_loc(direction))
+				stair_transit_pending = TRUE
+				break
 		step(AM, direction)
 		if(AM.loc != next)
+			if(stair_transit_pending)
+				handle_vehicle_layer()
+				handle_vehicle_offsets()
+				return TRUE
 			var/can_force = !next.density
 			if(can_force && (!current.CanPass(AM, next) || !next.CanPass(AM, current)))
 				can_force = FALSE
