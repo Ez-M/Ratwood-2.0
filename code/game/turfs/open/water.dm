@@ -282,10 +282,10 @@
 					L.adjust_bodytemperature(-75)
 					L.update_health_hud()
 				if(temperature >= 300)	//bathhouses, predominantly
-					if(L.bodytemperature > BODYTEMP_NORMAL_MIN + 75)	//washing yourself helps to cool you off.
-						L.adjust_bodytemperature(-75)
+					if(L.bodytemperature < BODYTEMP_NORMAL_MIN)	//washing yourself helps to warm you up.
+						L.adjust_bodytemperature(75)
 						L.update_health_hud()
-					if(L.bodytemperature < BODYTEMP_NORMAL_MAX - 75)	//washing yourself helps to cool you off.
+					if(L.bodytemperature > BODYTEMP_NORMAL_MAX)	//washing yourself helps to cool you off.
 						L.adjust_bodytemperature(-75)
 						L.update_health_hud()
 				if(istype(src,/turf/open/water/sewer) || istype(src,/turf/open/water/swamp) || istype(src, /turf/open/water/sewer))

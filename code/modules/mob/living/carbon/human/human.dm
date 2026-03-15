@@ -1173,14 +1173,14 @@
 
 	if(base_delta > 0)
 		// Only apply protection if:
-		// Already overheated OR being pushed into overheating
-		if(current_temp >= BODYTEMP_NORMAL_MAX || new_temp > BODYTEMP_NORMAL_MAX)
+		// Normal temperature to overheating
+		if(current_temp >= BODYTEMP_NORMAL_MIN || new_temp > BODYTEMP_NORMAL_MIN)
 			protection = get_heat_protection(exposure_temp)
 
 	else if(base_delta < 0)
 		// Only apply protection if:
-		// Already too cold OR being pushed into too cold
-		if(current_temp <= BODYTEMP_NORMAL_MIN || new_temp < BODYTEMP_NORMAL_MIN)
+		// Normal temperature to cold
+		if(current_temp <= BODYTEMP_NORMAL_MAX || new_temp < BODYTEMP_NORMAL_MAX)
 			protection = get_cold_protection(exposure_temp)
 
 	// ---------------------------

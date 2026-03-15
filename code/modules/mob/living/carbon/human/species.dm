@@ -2117,7 +2117,7 @@ GLOBAL_VAR_INIT(cold_breath_overlay, mutable_appearance(
 //When the environment is hot, we check if the players temp is above or below 'Normal', and apply protection to increase, or reduce the gradual shift to being hotter from exposure.
 //Functionally this does the same thing for when the environment is cold.
 //When in level 1 of cold, mobs will become hungrier faster. shiver occasionally.
-//Level 2 of cold will shiver more frequently, provide movement slowdown, minor con reduction and after 3 minutes of exposure to cold, A hypothermia wound will be applied if body temp still at level 2. one minute later, hypothermia transforms into frostbite
+//Level 2 of cold will shiver more frequently, provide movement slowdown, minor con reduction and after 2 minutes of exposure to cold, A hypothermia wound will be applied if body temp still at level 2. one minute later, hypothermia transforms into frostbite
 //When in level 1 of heat, mobs will become thirstier faster.
 //Level 2 of heat will cause more stamina use per action, half stamina regen and heatexhaustion will be applied if body temp still at level 2. after a minute, heat exhaustion transforms into heatstroke
 
