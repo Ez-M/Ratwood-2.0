@@ -421,6 +421,7 @@
 	detail_tag = "_detail"
 	icon = 'icons/roguetown/clothing/head.dmi'
 	sewrepair = TRUE
+	nudist_approved = TRUE
 	color = CLOTHING_BLACK
 	detail_color = CLOTHING_BROWN
 
