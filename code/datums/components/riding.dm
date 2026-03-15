@@ -5,6 +5,8 @@
 	var/keytype
 	var/riding_xp_move_counter = 0 //counter to reduce XP spam - award XP every 5 moves
 
+	var/mob/living/driver = null //the first rider — only they can steer
+
 	var/slowed = FALSE
 	var/slowvalue = 1
 
@@ -35,11 +37,18 @@
 	M.updating_glide_size = TRUE
 	if(del_on_unbuckle_all && !AM.has_buckled_mobs())
 		qdel(src)
+	if(driver == M)
+		driver = null
+		for(var/mob/living/rider in AM.buckled_mobs.Copy())
+			rider.visible_message(span_warning("[rider] is left without a driver and tumbles off [AM]!"), span_warning("Without a driver, I fall off [AM]!"))
+			AM.unbuckle_mob(rider, TRUE)
 
 /datum/component/riding/proc/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
 	var/atom/movable/AM = parent
 	M.set_glide_size(AM.glide_size)
 	M.updating_glide_size = FALSE
+	if(!driver || QDELETED(driver))
+		driver = M
 	handle_vehicle_offsets()
 
 /datum/component/riding/proc/handle_vehicle_layer()
@@ -203,6 +212,15 @@
 		if(!isturf(AM.loc))
 			return
 		step(AM, direction)
+		if(AM.loc != next)
+			var/can_force = !next.density
+			if(can_force)
+				for(var/atom/movable/blocker in next)
+					if(blocker.density)
+						can_force = FALSE
+						break
+			if(can_force)
+				AM.forceMove(next)
 
 		if((direction & (direction - 1)) && (AM.loc == next))		//moved diagonally
 			last_move_diagonal = TRUE

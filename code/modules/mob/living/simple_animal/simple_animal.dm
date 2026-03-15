@@ -817,6 +817,12 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 
 /mob/living/simple_animal/hostile/user_unbuckle_mob(mob/living/M, mob/user)
 	if(user != M)
+		// Allow others to unbuckle incapacitated or downed riders
+		if(M.stat == CONSCIOUS && (M.mobility_flags & MOBILITY_STAND))
+			return
+		// Bypass the dismount animation for helpless riders
+		unbuckle_mob(M, TRUE)
+		update_icon()
 		return
 	var/time2mount = 12
 	if(M.mind)
@@ -862,6 +868,15 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 		if(ssaddle)
 			playsound(src, 'sound/foley/saddlemount.ogg', 100, TRUE)
 	..()
+	if(ishuman(M) && buckled_mobs && buckled_mobs.len < max_buckled_mobs)
+		var/mob/living/carbon/human/primary_rider = M
+		for(var/mob/living/passenger in primary_rider.buckled_mobs.Copy())
+			if(buckled_mobs.len >= max_buckled_mobs)
+				break
+			if(!ishuman(passenger) || passenger.stat != CONSCIOUS)
+				continue
+			primary_rider.unbuckle_mob(passenger, TRUE)
+			buckle_mob(passenger, TRUE, FALSE)
 	update_icon()
 
 /mob/living/simple_animal/hostile
@@ -914,8 +929,10 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 		L.visible_message(span_danger("[L] falls off [src]!"))
 
 /mob/living/simple_animal/buckle_mob(mob/living/buckled_mob, force = 0, check_loc = 1)
+	var/datum/component/riding/riding_datum = LoadComponent(/datum/component/riding)
+	if(riding_datum && ishuman(buckled_mob))
+		max_buckled_mobs = max(max_buckled_mobs, 2)
 	. = ..()
-	LoadComponent(/datum/component/riding)
 
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)
 	if(!can_have_ai && (togglestatus != AI_OFF))

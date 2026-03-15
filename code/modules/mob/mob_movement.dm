@@ -124,6 +124,12 @@
 	if(mob.remote_control)					//we're controlling something, our movement is relayed to it
 		return mob.remote_control.relaymove(mob, direct)
 
+	// Mounted movement should be relayed before grab logic, otherwise pull checks can block riding.
+	if(mob.buckled)
+		var/mob/buckled_mob = mob
+		if(buckled_mob.get_buckled_animal_mount())
+			return mob.buckled.relaymove(mob, direct)
+
 	if(Process_Grab()) //are we restrained by someone's grip?
 		return
 
