@@ -255,7 +255,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/turfs/stone/haremgreenbricks
-	name = "Harm Green Bricks"
+	name = "Harem Green Bricks"
 	result = /turf/open/floor/rogue/tile/harem1
 	reqs = list(/obj/item/natural/stoneblock = 2)
 	craftdiff = 3
