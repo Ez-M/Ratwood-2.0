@@ -67,7 +67,8 @@
 	tutorial = "Responsible for the safety of the city and the enforcement of the law, \
 	you patrol the city streets, on the look out for crime and disorder. \
 	Armed with chains and a trusty beating stick, you are charged with catching \
-	thieves, vagrants and troublemakers, confiscating illicit goods, and administering swift and orderly justice"
+	thieves, vagrants and troublemakers, confiscating illicit goods, and administering swift and orderly justice.\
+	While you may be called upon as members of the garrison by the Marshal and Crown, your true loyalty resides with the Watch Captain and the city. \"
 	outfit = /datum/outfit/job/roguetown/guardsman/cityguard
 
 	category_tags = list(CTAG_WATCH)
