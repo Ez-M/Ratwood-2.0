@@ -157,6 +157,20 @@
 	crossfire = FALSE
 	cookonme = TRUE
 
+/obj/machinery/light/rogue/wallfirecrafted
+	name = "fireplace"
+	desc = "A warm fire dances between a pile of half-burnt logs upon a bed of glowing embers."
+	icon_state = "wallfire1"
+	base_state = "wallfire"
+	light_outer_range = 4 //slightly weaker than a torch
+	bulb_colour = "#ffa35c"
+	density = FALSE
+	fueluse = 0
+	no_refuel = TRUE
+	crossfire = FALSE
+	pixel_y = 32
+	cookonme = TRUE
+
 /obj/machinery/light/rogue/wallfire/candle
 	name = "candles"
 	desc = "Tiny flames flicker to the slightest breeze and offer enough light to see."
@@ -326,7 +340,7 @@
 				addtimer(CALLBACK(src, PROC_REF(trigger_weather)), rand(5,20))
 				return TRUE
 
-/obj/machinery/light/rogue/torchholder/Initialize()
+/obj/machinery/light/rogue/torchholder/Initialize(mapload)
 	torchy = new /obj/item/flashlight/flare/torch(src)
 	torchy.spark_act()
 	torchy.weather_resistant = TRUE
@@ -465,7 +479,7 @@
 	var/mob/living/carbon/human/lastuser
 	var/datum/looping_sound/boilloop/boilloop
 
-/obj/machinery/light/rogue/hearth/Initialize()
+/obj/machinery/light/rogue/hearth/Initialize(mapload)
 	boilloop = new(src, FALSE)
 	. = ..()
 
