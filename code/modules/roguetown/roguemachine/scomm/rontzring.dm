@@ -9,7 +9,7 @@
 	possible_item_intents = list(INTENT_GENERIC)
 	force = 10
 	throwforce = 10
-	slot_flags = ITEM_SLOT_MOUTH|ITEM_SLOT_HIP|ITEM_SLOT_NECK|ITEM_SLOT_RING|ITEM_SLOT_HANDS
+	slot_flags = ITEM_SLOT_MOUTH|ITEM_SLOT_HIP|ITEM_SLOT_NECK|ITEM_SLOT_RING|ITEM_SLOT_GLOVES
 	obj_flags = null
 	icon = 'icons/roguetown/items/misc.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -17,6 +17,8 @@
 	muteinmouth = TRUE
 	var/listening = TRUE
 	var/speaking = TRUE
+	var/disguised = FALSE
+
 	sellprice = 0
 	grid_width = 32
 	grid_height = 32
@@ -43,32 +45,35 @@
 		return FALSE
 	. = ..()
 
-/obj/item/mattcoin/attack_self(mob/user)
+/obj/item/mattcoin/attack_self(mob/living/user)
 	. = ..()
-	(mob/user)
-	if(overlays.len)
-		..()
-		return
 
-	var/icon/J = new('icons\roguetown\clothing\rings.dmi')
-	var/list/istates = J.IconStates()
-	for(var/icon_s in istates)
-		if(!findtext(icon_s, "[icon_state]_"))
-			istates.Remove(icon_s)
-			continue
-		istates.Add(replacetextEx(icon_s, "[icon_state]_", ""))
-		istates.Remove(icon_s)
+	if(disguised)
+		if(alert(user, "Revert disguise?", "Disguise", "Yes", "No") == "Yes")
+			name = "rontz ring"
+			icon = 'icons/roguetown/items/misc.dmi'
+			icon_state = "mattcoin"
+			disguised = FALSE
+			update_icon()
+		return FALSE
 
-	if(!istates.len)
-		..()
-		return
+	var/icon/J = new('icons/roguetown/clothing/bandit_rings.dmi')
 
-	var/picked_name = input(user, "Choose a Disguise", "ROGUETOWN", name) as null|anything in sortList(istates)
+	var/list/istates = list()
+
+	for(var/icon_s in J.IconStates())
+		if(findtext(icon_s, "mattcoin_"))
+			istates += replacetext(icon_s, "mattcoin_", "")
+
+	var/picked_name = input(user, "Choose a Disguise", "ROGUETOWN") as null|anything in sortList(istates)
 	if(!picked_name)
-		picked_name = "none"
-	var/mutable_appearance/M = mutable_appearance('icons\roguetown\clothing\rings.dmi', "[icon_state]_[picked_name]")
-	M.appearance_flags = NO_CLIENT_COLOR
-	add_overlay(M)
+		return
+
+	icon = 'icons/roguetown/clothing/bandit_rings.dmi'
+	icon_state = "mattcoin_[picked_name]"
+
+	name = replacetext(picked_name, "_", " ")
+	disguised = TRUE
 
 	update_icon()
 

@@ -547,33 +547,6 @@
 		return FALSE
 	. = ..()
 
-/obj/item/rogueweapon/shield/attack_right(mob/user)
-	if(overlays.len)
-		..()
-		return
-
-	var/icon/J = new('icons\roguetown\clothing\rings.dmi')
-	var/list/istates = J.IconStates()
-	for(var/icon_s in istates)
-		if(!findtext(icon_s, "[icon_state]_"))
-			istates.Remove(icon_s)
-			continue
-		istates.Add(replacetextEx(icon_s, "[icon_state]_", ""))
-		istates.Remove(icon_s)
-
-	if(!istates.len)
-		..()
-		return
-
-	var/picked_name = input(user, "Choose a Disguise", "ROGUETOWN", name) as null|anything in sortList(istates)
-	if(!picked_name)
-		picked_name = "none"
-	var/mutable_appearance/M = mutable_appearance('icons\roguetown\clothing\rings.dmi', "[icon_state]_[picked_name]")
-	M.appearance_flags = NO_CLIENT_COLOR
-	add_overlay(M)
-
-	update_icon()
-
 /obj/item/mattcoin/attack_right(mob/living/carbon/human/user)
 	user.changeNext_move(CLICK_CD_INTENTCAP)
 	var/input_text = input(user, "Enter your message:", "Message")
