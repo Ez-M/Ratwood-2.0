@@ -57,3 +57,4 @@
 	// Coggers so he can build a potter's wheel.
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/digclay)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/takeapprentice)
