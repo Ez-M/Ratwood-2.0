@@ -729,4 +729,5 @@
 		if(BP)
 			to_chat(C, span_userdanger("I feel pins and needles in [BP]!"))
 			BP.add_wound(/datum/wound/frostbite)
+			C.clear_fullscreen("hypothermia") 
 		qdel(src)
