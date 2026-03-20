@@ -12,7 +12,6 @@
 		/datum/job/roguetown/guardsman,
 		/datum/job/roguetown/watchcaptain,
 		/datum/job/roguetown/wardenmaster,
-		/datum/job/roguetown/rookie
 	)
 	slot_adjust = list(
 		/datum/job/roguetown/warden = 6,

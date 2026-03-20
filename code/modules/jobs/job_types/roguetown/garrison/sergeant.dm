@@ -157,12 +157,12 @@
 			to_chat(user, span_alert("I must say something to give an order!"))
 			return
 		if(user.job == "Sergeant")
-			if(!(target.job in list("Man at Arms", "Watchman")))
+			if(!(target.job in list("Man at Arms", "Watchman", "Rookie")))
 				to_chat(user, span_alert("I cannot order one not of my ranks!"))
 				revert_cast()
 				return
 		if(user.job == "Knight Captain")
-			if(!(target.job in list("Knight", "Squire")))
+			if(!(target.job in list("Knight", "Squire", "Man at Arms")))
 				to_chat(user, span_alert("I cannot order one not of my ranks!"))
 				revert_cast()
 				return
@@ -223,12 +223,12 @@
 			to_chat(user, span_alert("I must say something to give an order!"))
 			return
 		if(user.job == "Sergeant")
-			if(!(target.job in list("Man at Arms", "Watchman")))
+			if(!(target.job in list("Man at Arms", "Watchman", "Rookie")))
 				to_chat(user, span_alert("I cannot order one not of my ranks!"))
 				revert_cast()
 				return
 		if(user.job == "Knight Captain")
-			if(!(target.job in list("Knight", "Squire")))
+			if(!(target.job in list("Knight", "Squire", "Man at Arms")))
 				to_chat(user, span_alert("I cannot order one not of my ranks!"))
 				revert_cast()
 				return
@@ -258,12 +258,12 @@
 			to_chat(user, span_alert("I must say something to give an order!"))
 			return
 		if(user.job == "Sergeant")
-			if(!(target.job in list("Man at Arms", "Watchman")))
+			if(!(target.job in list("Man at Arms", "Watchman", "Rookie")))
 				to_chat(user, span_alert("I cannot order one not of my ranks!"))
 				revert_cast()
 				return
 		if(user.job == "Knight Captain")
-			if(!(target.job in list("Knight", "Squire")))
+			if(!(target.job in list("Knight", "Squire", "Man at Arms")))
 				to_chat(user, span_alert("I cannot order one not of my ranks!"))
 				revert_cast()
 				return
@@ -320,7 +320,7 @@
 			to_chat(user, span_alert("I must say something to give an order!"))
 			return
 		if(user.job == "Sergeant")
-			if(!(target.job in list("Man at Arms", "Watchman")))
+			if(!(target.job in list("Man at Arms", "Watchman", "Rookie")))
 				to_chat(user, span_alert("I cannot order one not of my ranks!"))
 				revert_cast()
 				return

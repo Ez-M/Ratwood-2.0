@@ -11,7 +11,7 @@
 	advclass_cat_rolls = list(CTAG_ROOKIE = 20)
 	job_traits = list(TRAIT_SQUIRE_REPAIR, TRAIT_GUARDSMAN)
 
-	tutorial = "Odd-jobs, running messages, fixing dents and talking to locals; the City Guard can always use a spare pair of hands, eyes and ears. Assist your fellow city guards in dealing with threats - both within and without. \
+	tutorial = "Odd-jobs, running messages, fixing dents and talking to locals; the Guard can always use a spare pair of hands, eyes and ears. Assist your fellow guards in dealing with threats - both within and without. \
 				Given a brief introduction in weapons and guardwork, the rest of your training is to be picked up on the job. \
 				Obey your superiors (everyone who isn't you) and show the nobles your respect. Keep an eye out, try to learn a thing or two, then one day you might live to make an adequate soldier."
 	
@@ -35,7 +35,10 @@
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
 	belt = /obj/item/storage/belt/rogue/leather
 	head = /obj/item/clothing/head/roguetown/helmet/kettle/citywatch
-	cloak = /obj/item/clothing/cloak/citywatch
+	if(SSmapping.config.map_name == "Rockhill")
+		cloak = /obj/item/clothing/cloak/citywatch
+	else
+		cloak = /obj/item/clothing/cloak/stabard/surcoat/guard
 	id = /obj/item/scomstone/bad/garrison
 	job_bitflag = BITFLAG_GARRISON
 
