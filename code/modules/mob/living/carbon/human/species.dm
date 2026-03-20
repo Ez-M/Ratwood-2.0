@@ -2211,7 +2211,7 @@ GLOBAL_VAR_INIT(cold_breath_overlay, mutable_appearance(
 				H.apply_status_effect(/datum/status_effect/debuff/overheat)
 				H.update_health_hud()
 			return
-		if(H.bodytemperature >= BODYTEMP_HEAT_LEVEL_ONE_MAX)
+		if(H.bodytemperature >= BODYTEMP_HEAT_LEVEL_ONE_MAX && !HAS_TRAIT (H, TRAIT_EXTREME_TEMPERATURE_IMMUNE))
 			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, heat_warn)),20 SECONDS,TIMER_UNIQUE | TIMER_STOPPABLE | TIMER_NO_HASH_WAIT)
 			if(!H.heatstroke_timer_id)
 				H.heatstroke_timer_id = addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, apply_heatexhaust)),2 MINUTES ,TIMER_STOPPABLE)
@@ -2230,7 +2230,7 @@ GLOBAL_VAR_INIT(cold_breath_overlay, mutable_appearance(
 				H.apply_status_effect(/datum/status_effect/debuff/brittle)
 				H.update_health_hud()
 			return
-		if(H.bodytemperature < BODYTEMP_COLD_LEVEL_ONE_MAX)	//Level 2 cold - con punishment, frostbite, speed reduction
+		if(H.bodytemperature < BODYTEMP_COLD_LEVEL_ONE_MAX && !HAS_TRAIT(H, TRAIT_EXTREME_TEMPERATURE_IMMUNE))	//Level 2 cold - con punishment, frostbite, speed reduction
 			if(prob(15))
 				addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, emote), "shiver"), (rand(2,6)SECONDS),TIMER_UNIQUE | TIMER_STOPPABLE)
 			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, cold_warn)),20 SECONDS,TIMER_UNIQUE)
