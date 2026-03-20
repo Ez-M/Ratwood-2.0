@@ -35,10 +35,6 @@
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
 	belt = /obj/item/storage/belt/rogue/leather
 	head = /obj/item/clothing/head/roguetown/helmet/kettle/citywatch
-	if(SSmapping.config.map_name == "Rockhill")
-		cloak = /obj/item/clothing/cloak/citywatch
-	else
-		cloak = /obj/item/clothing/cloak/stabard/surcoat/guard
 	id = /obj/item/scomstone/bad/garrison
 	job_bitflag = BITFLAG_GARRISON
 
@@ -87,6 +83,10 @@
 	pants = /obj/item/clothing/under/roguetown/chainlegs/iron
 	neck = /obj/item/clothing/neck/roguetown/chaincoif/iron
 	backr = /obj/item/storage/backpack/rogue/satchel
+	if(SSmapping.config.map_name == "Rockhill")
+		cloak = /obj/item/clothing/cloak/citywatch
+	else
+		cloak = /obj/item/clothing/cloak/stabard/surcoat/guard
 	backpack_contents = list(
 		/obj/item/rogueweapon/huntingknife/idagger,
 		/obj/item/storage/belt/rogue/pouch,
@@ -149,6 +149,10 @@
 	backr = /obj/item/storage/backpack/rogue/satchel
 	neck = /obj/item/clothing/neck/roguetown/chaincoif/iron
 	beltl = /obj/item/rogueweapon/mace/cudgel
+	if(SSmapping.config.map_name == "Rockhill")
+		cloak = /obj/item/clothing/cloak/citywatch
+	else
+		cloak = /obj/item/clothing/cloak/stabard/surcoat/guard
 	backpack_contents = list(
 		/obj/item/rogueweapon/huntingknife/idagger,
 		/obj/item/storage/belt/rogue/pouch,
