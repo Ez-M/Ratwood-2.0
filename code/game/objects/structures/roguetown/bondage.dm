@@ -149,9 +149,10 @@
 	. += "Right-click to step up to \the [src]."
 
 /obj/structure/bondage/gloryhole/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
-	var/adir = get_dir(loc, M)
-	if(dir == adir) // if standing at the front of the gloryhole, prevent buckling
-		return FALSE
+	if(M && ishuman(M) && !has_buckled_mobs())
+		if(loc != M?.loc)
+			to_chat(M, span_warning("I have to be closer to service \the [src]."))
+			return FALSE
 	return ..()
 
 /obj/structure/bondage/gloryhole/post_buckle_mob(mob/living/M)
