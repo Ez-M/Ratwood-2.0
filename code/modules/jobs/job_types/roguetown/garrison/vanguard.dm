@@ -86,7 +86,7 @@
 	beltl = /obj/item/rogueweapon/huntingknife/idagger/steel
 	id = /obj/item/scomstone/bad/garrison
 	backpack_contents = list(
-		/obj/item/storage/keyring/guard = 1,
+		/obj/item/roguekey/walls = 1,
 		/obj/item/flashlight/flare/torch/lantern = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		/obj/item/reagent_containers/glass/bottle/alchemical/healthpot = 1,
